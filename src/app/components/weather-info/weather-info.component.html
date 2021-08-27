@@ -1,8 +1,18 @@
-<div *ngIf="data">
+<div class="container">
+    <div class="custom-class">
+        <input type="text" #val [(ngModel)]="city" name="cityName">
+        <button type="button" class="btn btn-primary" (click)="getData()" (click)="getCity(val.value)">Click for results</button>
+    </div>
+    <h1 class="text-center text-capitalize">{{cityName}}</h1>
+ 
+    <div *ngIf="data && notFound==false" class="text-center mt-3">
+        <h2>Temperature: {{temp}} °C</h2>
+        <h2>Weather: {{data.weather[0].main}}</h2>
+        <h2>Country: {{data.sys.country}}</h2>
+    </div>
 
-
-<h1>{{data.name}}</h1>
-<h1>{{data.region}}</h1>
-<h1>{{data.localtime_epoch}}</h1>
-<h1>{{data.country}}</h1>
+    <ng-container *ngIf="notFound"><h1 class="text-center">No data</h1></ng-container>
 </div>
+
+<app-map  [class.d-none]="!data" #mapChildComponent></app-map>
+    
